@@ -1,0 +1,64 @@
+# PremiumGuard Messages
+
+# ========= Security Messages =========
+
+# Player kicked from anti bot feature
+kick-antibot: '&4Please wait a moment!'
+
+# The server sends a verify-token within the premium authentication request. If this doesn't match on response,
+# it could be another client sending malicious packets
+invalid-verify-token: '&4Invalid nonce token. Please verify you are using the correct server address'
+
+# ========= PremiumGuard ================================
+
+# Multi-line message when a cracked player tries to use a premium username
+# Use \n for new lines or YAML literal block with |
+premium-auth-failed: |
+  &c&l[PremiumGuard]
+  &7
+  &cThis username belongs to a &npaid Minecraft account&c.
+  &7
+  &7You have two options:
+  &a  1. &fLogin with the correct &apaid Minecraft account
+  &a  2. &fUse a &cdifferent username
+  &7
+  &7&oIf you believe this is an error, contact the server staff.
+
+# ========= Error Messages =========
+
+# When ProtocolLib is enabled and the plugin is unable to continue handling a login request after a requested premium
+# authentication. In this state the client expects a success packet with an encrypted connection or disconnect packet.
+# So we kick the player, if we cannot encrypt the connection.
+error-kick: '&4Error occurred during login'
+
+# The client sent a malicious packet without a login request packet
+invalid-request: '&4Invalid request'
+
+# Message if the Bukkit isn't fully started to inject the packets
+not-started: '&cServer is not fully started yet. Please retry'
+
+# Invalid client public key that will be used in the future to send authenticated chat messages from clients
+invalid-public-key: '&cInvalid client public key. Please try to restart your game.'
+
+# ========= Bypass Command Messages =========
+
+# Bypass command - no permission
+no-permission: '&4Not enough permissions'
+
+# Bypass command - player added to bypass list
+bypass-add: '&aAdded &e%player &ato the bypass list.'
+
+# Bypass command - player removed from bypass list
+bypass-remove: '&aRemoved &e%player &afrom the bypass list.'
+
+# Bypass command - player already in bypass list
+bypass-already-exists: '&e%player &cis already in the bypass list!'
+
+# Bypass command - player not in bypass list
+bypass-not-found: '&e%player &cis not in the bypass list!'
+
+# Bypass command - empty list
+bypass-list-empty: '&7No players in the bypass list.'
+
+# Bypass command - list header
+bypass-list-header: '&a=== Bypass List (%count% players) ==='

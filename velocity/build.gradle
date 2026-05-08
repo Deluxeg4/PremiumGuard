@@ -1,0 +1,127 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2024-2025 CADS
+ */
+
+plugins {
+    id 'com.gradleup.shadow'
+}
+
+archivesBaseName = 'PremiumGuardVelocity'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+compileJava {
+    options.release = 17
+    options.encoding = 'UTF-8'
+}
+
+// Handle Java templates (PomData.java)
+sourceSets {
+    main {
+        java {
+            srcDirs 'src/main/java', 'build/generated-sources/templates'
+        }
+    }
+}
+
+task processTemplates {
+    doLast {
+        def templatesDir = file('src/main/java-templates')
+        fileTree(templatesDir).matching { include '**/*.java' }.each { templateFile ->
+            def relativePath = templatesDir.toPath().relativize(templateFile.toPath()).toString()
+            def outputFile = file("build/generated-sources/templates/$relativePath")
+            outputFile.parentFile.mkdirs()
+            
+            def content = templateFile.text
+            content = content
+                .replace('${project.name}', 'PremiumGuardVelocity')
+                .replace('${project.parent.artifactId}', 'premiumguard')
+                .replace('${project.version}', project.version)
+                .replace('${git.commit.id.abbrev}', 'release')
+                .replace('${project.parent.description}', 'PremiumGuard - Blocks cracked players from using premium account names')
+                .replace('${project.parent.url}', 'https://github.com/cads/premiumguard')
+            
+            outputFile.text = content
+        }
+    }
+}
+
+compileJava.dependsOn processTemplates
+
+dependencies {
+    // Core module
+    implementation(project(':core')) {
+        // Exclude dependencies already present in Velocity
+        exclude group: 'com.google.guava', module: 'guava'
+        exclude group: 'org.slf4j', module: '*'
+        exclude group: 'com.google.code.gson', module: 'gson'
+    }
+    
+    // Velocity API
+    compileOnly 'com.velocitypowered:velocity-api:3.4.0-SNAPSHOT'
+    annotationProcessor 'com.velocitypowered:velocity-api:3.4.0-SNAPSHOT'
+    
+    // MariaDB driver (Velocity does not ship any database driver)
+    implementation('org.mariadb.jdbc:mariadb-java-client:3.5.3') {
+        exclude group: 'com.github.waffle', module: 'waffle-jna'
+    }
+    
+    // Geyser
+    compileOnly('org.geysermc.geyser:core:2.2.1-SNAPSHOT') {
+        transitive = false
+    }
+    
+    // Floodgate
+    compileOnly('org.geysermc.floodgate:api:2.2.3-SNAPSHOT') {
+        transitive = false
+    }
+    
+    // CraftAPI (Mojang API client) - needed directly
+    compileOnly 'com.github.games647:craftapi:1.0-SNAPSHOT'
+    
+    // BungeeCord Config (for Configuration class)
+    compileOnly 'net.md-5:bungeecord-config:1.20-R0.2'
+    
+    // Geyser API (for GeyserApi and GeyserApiBase)
+    compileOnly 'org.geysermc.geyser:api:2.2.1-SNAPSHOT'
+}
+
+// Resource filtering
+processResources {
+    filesMatching('**/*.json') {
+        filter { String line ->
+            line
+                .replace('${project.version}', project.version)
+                .replace('${project.name}', 'PremiumGuardVelocity')
+                .replace('${project.description}', 'PremiumGuard - Blocks cracked players from using premium account names')
+        }
+    }
+}
+
+// Shadow JAR configuration
+shadowJar {
+    archiveClassifier = ''
+    
+    minimize()
+    
+    // Relocations
+    relocate 'com.zaxxer.hikari', 'premiumguard.hikari'
+    relocate 'net.md_5.bungee.config', 'premiumguard.config'
+    relocate 'org.mariadb', 'premiumguard.mariadb'
+    
+    // Exclude manifest
+    exclude 'META-INF/MANIFEST.MF'
+    
+    // Include everything from MariaDB
+    mergeServiceFiles()
+}
+
+// Build task depends on shadowJar
+tasks.build.dependsOn shadowJar

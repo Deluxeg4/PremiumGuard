@@ -1,0 +1,92 @@
+# PremiumGuard Config
+# Blocks cracked players from using premium Minecraft account names
+
+# Anti-bot protection
+anti-bot:
+  enabled: true
+  connections: 600
+  expire: 10
+  action: 'ignore'
+
+# Always enabled for PremiumGuard - do not disable
+premiumGuard: true
+
+# REMOVED: autoRegister - PremiumGuard works automatically, no registration needed
+# REMOVED: respectIpLimit - Not needed for PremiumGuard
+# REMOVED: secondAttemptCracked - Not needed for PremiumGuard
+# REMOVED: switchMode - Not needed for PremiumGuard
+
+# Use premium UUID for premium players (recommended for PremiumGuard)
+premiumUuid: true
+
+# Name change check - PremiumGuard handles this automatically via UUID tracking
+# REMOVED: nameChangeCheck - Not needed, PremiumGuard tracks by UUID automatically
+
+# REMOVED: forwardSkin - Not needed for PremiumGuard
+# REMOVED: premium-warning - No commands in PremiumGuard
+# REMOVED: kick-toggle - No commands in PremiumGuard
+
+# Use proxy-agnostic resolver for Mojang API
+useProxyAgnosticResolver: true
+
+# Rate limiting for Mojang API requests
+mojang-request-limit: 600
+ip-addresses: []
+
+# REMOVED: auto-register-unknown - Not needed for PremiumGuard
+# REMOVED: autoLogin - PremiumGuard always requires authentication
+
+# Floodgate/Bedrock settings - Bedrock players bypass PremiumGuard checks
+# Allow Bedrock players to use premium Java account names (they get different UUIDs anyway)
+allowFloodgateNameConflict: true
+
+# REMOVED: autoLoginFloodgate - Not needed for PremiumGuard
+# REMOVED: autoRegisterFloodgate - Not needed for PremiumGuard
+
+# Verify client cryptographic keys (1.19+)
+verifyClientKeys: false
+
+# Database configuration
+# Recommended is the use of MariaDB (a better version of MySQL)
+
+# Single file SQLite database
+driver: 'sqlite'
+# File location
+database: '{pluginDir}/FastLogin.db'
+
+# MySQL/MariaDB
+# If you want to enable it, uncomment only the lines below; this not this line.
+# If on velocity use 'mariadb' as the driver
+#driver: 'mysql'
+#host: '127.0.0.1'
+#port: 3306
+#database: 'fastlogin'
+#username: 'myUser'
+#password: 'myPassword'
+
+# Advanced Connection Pool settings in seconds
+#timeout: 30
+#lifetime: 30
+
+## It's recommended to enable SSL if the MySQL server isn't running on the same host
+## This will encrypt the connection for secure transportation of the sql server password
+#useSSL: false
+## Verification requirements for the server cert,
+## Values: Required (unchecked SSL connection), VerifyCA (verify CA), VerifyFull (verify CA and matching hostname)
+#sslMode=Required
+## TLS is preferred for this technique, then your host stored certificate store will be used to verify the server cert
+## Similar to HTTPS. If that's not possible RSA can be used with the following options.
+## This allows to request the public RSA key from the server to encrypt the data to it. True would allow machine-in-the-
+## middle attacks.
+#allowPublicKeyRetrieval=false
+## Path to the RSA public key if key retrieval is forbidden
+#ServerRSAPublicKeyFile=
+
+# HTTP proxies for connecting to the Mojang servers in order to check if the username of a player is premium.
+# This is a workaround to prevent rate-limiting by Mojang. These proxies will only be used once your server hit
+# the rate-limit or the custom value above.
+# Please make sure you use reliable proxies.
+proxies:
+  # 'IP:Port' or 'Domain:Port'
+  # - 'xyz.com:1337'
+  # - 'test.com:5131'

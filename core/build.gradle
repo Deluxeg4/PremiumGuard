@@ -1,0 +1,137 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2024-2025 CADS
+ */
+
+plugins {
+    id 'java-library'
+}
+
+archivesBaseName = 'premiumguard.core'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+// Multi-release JAR configuration for JDK 21
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 8
+}
+
+// Handle multi-release JAR for Java 21 - DISABLED for now
+// if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_21)) {
+//     sourceSets {
+//         java21 {
+//             java {
+//                 srcDirs = ['src/main/java21']
+//             }
+//         }
+//     }
+//     
+//     compileJava21Java {
+//         options.release = 21
+//     }
+//     
+//     jar {
+//         manifest {
+//             attributes 'Multi-Release': 'true'
+//             attributes 'Automatic-Module-Name': 'dev.cads.premiumguard.core'
+//         }
+//         into('META-INF/versions/21') {
+//             from compileJava21Java
+//         }
+//     }
+// }
+
+jar {
+    manifest {
+        attributes 'Automatic-Module-Name': 'dev.cads.premiumguard.core'
+    }
+}
+
+// Resource filtering
+processResources {
+    // Certificate should not be filtered
+    filesMatching('yggdrasil_session_pubkey.der') {
+        it.filteringCharset = null
+    }
+    
+    // Filter other resources
+    filesMatching('**/*.yml') {
+        filter { String line ->
+            line
+                .replace('${project.name}', rootProject.name)
+                .replace('${project.version}', project.version)
+                .replace('${project.description}', 'PremiumGuard - Blocks cracked players from using premium account names')
+                .replace('${project.url}', 'https://github.com/cads/premiumguard')
+        }
+    }
+}
+
+dependencies {
+    // Database pooling
+    implementation('com.zaxxer:HikariCP:4.0.3') {
+        exclude group: 'org.slf4j', module: 'slf4j-api'
+    }
+    
+    // Logging framework (SLF4J implementation)
+    implementation 'org.slf4j:slf4j-jdk14:2.0.17'
+    
+    // BungeeCord config (for YAML)
+    implementation 'net.md-5:bungeecord-config:1.20-R0.2'
+    
+    // SnakeYAML
+    implementation 'org.yaml:snakeyaml:2.4'
+    
+    // Floodgate API (Bedrock/Xbox Live auth)
+    compileOnly('org.geysermc.floodgate:api:2.2.3-SNAPSHOT') {
+        transitive = false
+    }
+    
+    // Geyser core (Bedrock player bridge)
+    compileOnly('org.geysermc.geyser:core:2.2.1-SNAPSHOT') {
+        transitive = false
+    }
+    
+    // Geyser API
+    compileOnly('org.geysermc.geyser:api:2.2.1-SNAPSHOT') {
+        transitive = false
+    }
+    
+    // CraftAPI (Mojang API client)
+    implementation 'com.github.games647:craftapi:1.0-SNAPSHOT'
+    
+    // SQLite JDBC (provided by Spigot/Bungee)
+    compileOnly 'org.xerial:sqlite-jdbc:3.36.0.3'
+}
+
+// Skip tests for now (JUnit 5 requires Java 17+, but main code is Java 8)
+test {
+    enabled = false
+}
+
+// Publish configuration
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            name = 'codemc'
+            url = version.endsWith('SNAPSHOT') ? 
+                'https://repo.codemc.io/repository/maven-snapshots/' :
+                'https://repo.codemc.io/repository/maven-releases/'
+            credentials {
+                username = findProperty('deployUser') ?: ''
+                password = findProperty('deployPassword') ?: ''
+            }
+        }
+    }
+}

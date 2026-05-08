@@ -1,0 +1,117 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2024-2025 CADS
+ */
+
+plugins {
+    id 'com.gradleup.shadow'
+}
+
+archivesBaseName = 'PremiumGuardBungee'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+compileJava {
+    options.release = 17
+    options.encoding = 'UTF-8'
+}
+
+// Skip test compilation - missing BungeeCord test dependencies
+compileTestJava {
+    enabled = false
+}
+
+dependencies {
+    // Core module
+    implementation(project(':core')) {
+        // Exclude dependencies already present in BungeeCord
+        exclude group: 'net.md-5', module: 'bungeecord-config'
+        exclude group: 'com.google.code.gson', module: 'gson'
+        exclude group: 'com.google.guava', module: 'guava'
+        exclude group: 'org.yaml', module: 'snakeyaml'
+    }
+    
+    // BungeeCord proxy
+    compileOnly('net.md-5:bungeecord-proxy:1.20-R0.2-SNAPSHOT') {
+        exclude group: 'org.slf4j', module: 'slf4j-api'
+        exclude group: 'com.mysql', module: '*'
+        exclude group: 'net.md-5', module: 'bungeecord-native'
+        exclude group: 'net.md-5', module: 'bungeecord-query'
+        exclude group: 'net.md-5', module: 'bungeecord-slf4j'
+        exclude group: 'net.sf.jopt-simple', module: '*'
+        exclude group: 'org.apache.maven', module: '*'
+        exclude group: 'org.apache.maven.resolver', module: '*'
+        exclude group: 'io.netty', module: '*'
+    }
+    
+    // Floodgate
+    compileOnly('org.geysermc.floodgate:api:2.2.3-SNAPSHOT') {
+        transitive = false
+    }
+    
+    // Geyser
+    compileOnly('org.geysermc.geyser:core:2.2.1-SNAPSHOT') {
+        transitive = false
+    }
+    
+    compileOnly('org.geysermc.geyser:api:2.2.1-SNAPSHOT') {
+        transitive = false
+    }
+    
+    // BungeeAuth (system dependency)
+    compileOnly files('lib/BungeeAuth-1.4.jar')
+    
+    // SLF4J API (excluded from core but needed for compilation)
+    compileOnly 'org.slf4j:slf4j-api:2.0.17'
+    
+    // CraftAPI (Mojang API client) - from core but needed directly
+    compileOnly 'com.github.games647:craftapi:1.0-SNAPSHOT'
+    
+    // Geyser API (for GeyserService and GeyserApiBase)
+    compileOnly 'org.geysermc.geyser:api:2.2.1-SNAPSHOT'
+}
+
+// Resource filtering for plugin.yml
+processResources {
+    filesMatching('bungee.yml') {
+        filter { String line ->
+            line
+                .replace('${project.version}', project.version)
+                .replace('${project.parent.name}', 'PremiumGuard')
+                .replace('${project.groupId}', project.group)
+                .replace('${project.artifactId}', 'premiumguard')
+                .replace('${project.name}', 'bungee')
+                .replace('${project.description}', 'PremiumGuard - Blocks cracked players from using premium account names')
+        }
+    }
+}
+
+// Shadow JAR configuration
+shadowJar {
+    archiveClassifier = ''
+    
+    minimize()
+    
+    // Relocations
+    relocate 'com.zaxxer.hikari', 'premiumguard.hikari'
+    relocate 'org.slf4j', 'premiumguard.slf4j'
+    
+    // Exclude manifest
+    exclude 'META-INF/MANIFEST.MF'
+    exclude '**/module-info'
+    exclude '**/module-info.class'
+}
+
+// Skip tests - missing BungeeCord test dependencies
+test {
+    enabled = false
+}
+
+// Build task depends on shadowJar
+tasks.build.dependsOn shadowJar

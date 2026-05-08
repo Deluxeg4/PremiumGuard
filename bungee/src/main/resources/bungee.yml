@@ -1,0 +1,19 @@
+# project data for BungeeCord
+# This file will be prioritised over plugin.yml which can be also used for Bungee
+# This make it easy to combine BungeeCord and Bukkit support in one plugin
+name: ${project.parent.name}
+# ${-} will be automatically replaced by Maven
+main: ${project.groupId}.${project.artifactId}.${project.name}
+
+version: ${project.version}-${git.commit.id.abbrev}
+author: CADS
+
+softDepends:
+    # BungeeCord auth plugins
+    - BungeeAuth
+    # Bedrock Player Bridge
+    - Geyser-BungeeCord
+    - floodgate
+
+description: |
+    ${project.description}

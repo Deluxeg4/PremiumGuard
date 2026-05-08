@@ -1,0 +1,164 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2024-2025 CADS
+ */
+
+plugins {
+    id 'com.gradleup.shadow'
+}
+
+archivesBaseName = 'PremiumGuard'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+compileJava {
+    options.release = 21
+    options.encoding = 'UTF-8'
+
+    // Exclude ProtocolSupport code (dependency disabled)
+    exclude '**/protocolsupport/**'
+}
+
+// Skip test compilation - missing ProtocolLib and other test dependencies
+compileTestJava {
+    enabled = false
+}
+
+dependencies {
+    // Core module
+    implementation project(':core')
+    
+    // Paper API
+    compileOnly('io.papermc.paper:paper-api:1.21.6-R0.1-SNAPSHOT') {
+        exclude group: 'org.slf4j', module: 'slf4j-api'
+        exclude group: 'org.ow2.asm', module: '*'
+        exclude group: 'org.apache.maven', module: '*'
+        exclude group: 'org.apache.logging.log4j', module: '*'
+    }
+    
+    // DataFixerUpper
+    compileOnly('com.mojang:datafixerupper:7.1.15') {
+        transitive = false
+    }
+    
+    // ProtocolLib (with transitive dependencies for compilation)
+    compileOnly 'com.comphenix.protocol:ProtocolLib:5.3.0'
+    
+    // ProtocolSupport - disabled due to version conflict
+    // compileOnly('com.github.ProtocolSupport:ProtocolSupport:master-SNAPSHOT') {
+    //     transitive = false
+    // }
+    
+    // Floodgate
+    compileOnly('org.geysermc.floodgate:api:2.2.3-SNAPSHOT') {
+        transitive = false
+    }
+    
+    // Geyser Core (for GeyserImpl)
+    compileOnly('org.geysermc.geyser:core:2.2.1-SNAPSHOT') {
+        transitive = false
+    }
+    
+    // Geyser API (for GeyserApi - includes GeyserApiBase transitively)
+    compileOnly 'org.geysermc.geyser:api:2.2.1-SNAPSHOT'
+    
+    // PlaceholderAPI
+    compileOnly('me.clip:placeholderapi:2.11.6') {
+        transitive = false
+    }
+    
+    // Auth plugins
+    compileOnly('fr.xephi:authme:5.6.0') {
+        transitive = false
+    }
+    
+    compileOnly('com.lenis0012.bukkit:loginsecurity:3.3.0') {
+        transitive = false
+    }
+    
+    compileOnly('com.github.games647:LogIt:9e3581db27') {
+        transitive = false
+    }
+    
+    compileOnly('de.luricos.bukkit:xAuth:2.6') {
+        transitive = false
+    }
+    
+    compileOnly('com.github.zigazajc007:Passky:v3.0.0') {
+        transitive = false
+    }
+    
+    // System dependencies (local JARs)
+    compileOnly files('lib/CrazyCore v10.7.7.jar')
+    compileOnly files('lib/CrazyLogin v7.23.2.jar')
+    compileOnly files('lib/UltraAuth v2.1.2.jar')
+    
+    // Netty (for Channel, AttributeKey)
+    compileOnly 'io.netty:netty-all:4.1.97.Final'
+    
+    // BungeeCord Config (for Configuration class)
+    compileOnly 'net.md-5:bungeecord-config:1.20-R0.2'
+    
+    // CraftAPI (for MojangResolver)
+    compileOnly 'com.github.games647:craftapi:1.0-SNAPSHOT'
+    
+    // Geyser API (for GeyserApiBase)
+    compileOnly('org.geysermc.geyser:api:2.2.1-SNAPSHOT') {
+        transitive = false
+    }
+    
+    // SLF4J API (excluded from core)
+    compileOnly 'org.slf4j:slf4j-api:2.0.17'
+    
+    // Test
+    testImplementation 'org.bouncycastle:bcprov-jdk18on:1.80'
+}
+
+// Resource filtering for plugin.yml
+processResources {
+    filesMatching('plugin.yml') {
+        filter { String line ->
+            line
+                .replace('${project.parent.name}', 'PremiumGuard')
+                .replace('${project.version}', project.version)
+                .replace('${project.groupId}', project.group)
+                .replace('${project.artifactId}', 'premiumguard')
+                .replace('${project.name}', 'bukkit')
+                .replace('${project.description}', 'PremiumGuard - Blocks cracked players from using premium account names')
+                .replace('${project.url}', 'https://github.com/cads/premiumguard')
+                .replace('${git.commit.id.abbrev}', 'release')
+        }
+    }
+}
+
+// Shadow JAR configuration
+shadowJar {
+    archiveClassifier = ''
+
+    minimize {
+        exclude(dependency('org.slf4j:.*'))
+    }
+
+    mergeServiceFiles()
+
+    // Relocations
+    relocate 'org.yaml.snakeyaml', 'premiumguard.yaml'
+    relocate 'com.zaxxer.hikari', 'premiumguard.hikari'
+    relocate 'org.slf4j', 'premiumguard.slf4j'
+    relocate 'net.md_5.bungee.config', 'premiumguard.config'
+    relocate 'com.google.gson', 'premiumguard.gson'
+    relocate 'com.google.common', 'premiumguard.guava'
+    relocate 'io.papermc.lib', 'premiumguard.paperlib'
+
+    // Exclude module-info
+    exclude '**/module-info.class'
+}
+
+// Build task depends on shadowJar
+tasks.build.dependsOn shadowJar

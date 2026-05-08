@@ -1,0 +1,45 @@
+# project data for Bukkit in order to register our plugin with all it's components
+# ${-} are variables from Maven (pom.xml) which will be replaced after the build
+name: ${project.parent.name}
+version: ${project.version}-${git.commit.id.abbrev}
+main: com.github.games647.fastlogin.bukkit.FastLoginBukkit
+
+# meta data for plugin managers
+authors: [CADS]
+description: |
+    ${project.description}
+website: ${project.url}
+dev-url: ${project.url}
+
+# This plugin doesn't have to be transformed for compatibility with Minecraft >= 1.13
+api-version: '1.13'
+
+softdepend:
+    # We depend on either ProtocolLib or ProtocolSupport
+    - ProtocolSupport
+    - ProtocolLib
+    # Premium variable
+    - PlaceholderAPI
+    # Bedrock Player Bridge
+    - Geyser-Spigot
+    - floodgate
+    # Auth plugins
+    - AuthMe
+    - CrazyLogin
+    - LoginSecurity
+    - LogIt
+    - UltraAuth
+    - xAuth
+    - Passky
+
+# PremiumGuard commands
+commands:
+    bypass:
+        description: 'Manage PremiumGuard bypass list - allow cracked players to use premium names'
+        usage: '/bypass <add|remove|list> [username]'
+        permission: premiumguard.command.bypass
+
+permissions:
+    premiumguard.command.bypass:
+        description: 'Allow managing PremiumGuard bypass list'
+        default: op
