@@ -10,8 +10,8 @@ graph TB
         VELOCITY["Velocity<br/>(Velocity Module)"]
     end
 
-    subgraph "FastLogin Core"
-        CORE["FastLoginCore<br/>Main Logic Engine"]
+    subgraph "PremiumGuard Core"
+        CORE["PremiumGuardCore<br/>Main Logic Engine"]
         SESSION["LoginSession<br/>Session Management"]
         AUTH["AuthPlugin Hook<br/>Auth Integration"]
         RESOLVER["ProxyAgnosticMojangResolver<br/>Profile Resolution"]
@@ -69,3 +69,5 @@ graph TB
 
     ANTIBOT -->|rate limits| RESOLVER
 ```
+
+

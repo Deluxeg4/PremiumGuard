@@ -52,7 +52,7 @@ verifyClientKeys: false
 # Single file SQLite database
 driver: 'sqlite'
 # File location
-database: '{pluginDir}/FastLogin.db'
+database: '{pluginDir}/PremiumGuard.db'
 
 # MySQL/MariaDB
 # If you want to enable it, uncomment only the lines below; this not this line.
@@ -60,7 +60,7 @@ database: '{pluginDir}/FastLogin.db'
 #driver: 'mysql'
 #host: '127.0.0.1'
 #port: 3306
-#database: 'fastlogin'
+#database: 'PremiumGuard'
 #username: 'myUser'
 #password: 'myPassword'
 
@@ -90,3 +90,5 @@ proxies:
   # 'IP:Port' or 'Domain:Port'
   # - 'xyz.com:1337'
   # - 'test.com:5131'
+
+

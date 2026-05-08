@@ -4,7 +4,7 @@
 
     The MIT License (MIT)
 
-    Copyright (c) 2015-2024 games647 and contributors
+    Copyright (c) 2015-2024 CADS and contributors
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -34,17 +34,17 @@
     </properties>
 
     <parent>
-        <groupId>com.github.games647</groupId>
-        <artifactId>fastlogin</artifactId>
+        <groupId>com.github.CADS</groupId>
+        <artifactId>PremiumGuard</artifactId>
         <version>1.12-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <!--This has to be in lowercase because it's used by plugin.yml-->
-    <artifactId>fastlogin.bukkit</artifactId>
+    <artifactId>PremiumGuard.bukkit</artifactId>
     <packaging>jar</packaging>
 
-    <name>FastLoginBukkit</name>
+    <name>PremiumGuardBukkit</name>
 
     <build>
         <plugins>
@@ -57,34 +57,34 @@
                     <relocations>
                         <relocation>
                             <pattern>org.yaml.snakeyaml</pattern>
-                            <shadedPattern>fastlogin.yaml</shadedPattern>
+                            <shadedPattern>PremiumGuard.yaml</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>com.zaxxer.hikari</pattern>
-                            <shadedPattern>fastlogin.hikari</shadedPattern>
+                            <shadedPattern>PremiumGuard.hikari</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>org.slf4j</pattern>
-                            <shadedPattern>fastlogin.slf4j</shadedPattern>
+                            <shadedPattern>PremiumGuard.slf4j</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>net.md_5.bungee.config</pattern>
-                            <shadedPattern>fastlogin.config</shadedPattern>
+                            <shadedPattern>PremiumGuard.config</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>com.google.gson</pattern>
-                            <shadedPattern>fastlogin.gson</shadedPattern>
+                            <shadedPattern>PremiumGuard.gson</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>com.google.common</pattern>
-                            <shadedPattern>fastlogin.guava</shadedPattern>
+                            <shadedPattern>PremiumGuard.guava</shadedPattern>
                             <excludes>
                                 <exclude>com.google.common.collect.Multimap</exclude>
                             </excludes>
                         </relocation>
                         <relocation>
                             <pattern>io.papermc.lib</pattern>
-                            <shadedPattern>fastlogin.paperlib</shadedPattern>
+                            <shadedPattern>PremiumGuard.paperlib</shadedPattern>
                         </relocation>
                     </relocations>
                     <!-- Rename the service file too to let SLF4J api find our own relocated jdk logger -->
@@ -159,8 +159,8 @@
     <dependencies>
         <!--Common plugin component-->
         <dependency>
-            <groupId>com.github.games647</groupId>
-            <artifactId>fastlogin.core</artifactId>
+            <groupId>com.github.CADS</groupId>
+            <artifactId>PremiumGuard.core</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -320,7 +320,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.games647</groupId>
+            <groupId>com.github.CADS</groupId>
             <artifactId>LogIt</artifactId>
             <version>9e3581db27</version>
             <scope>provided</scope>
@@ -400,3 +400,5 @@
         </dependency>
     </dependencies>
 </project>
+
+

@@ -84,7 +84,7 @@ dependencies {
     }
     
     // CraftAPI (Mojang API client) - needed directly
-    compileOnly 'com.github.games647:craftapi:1.0-SNAPSHOT'
+    compileOnly 'com.github.CADS:craftapi:1.0-SNAPSHOT'
     
     // BungeeCord Config (for Configuration class)
     compileOnly 'net.md-5:bungeecord-config:1.20-R0.2'
@@ -125,3 +125,5 @@ shadowJar {
 
 // Build task depends on shadowJar
 tasks.build.dependsOn shadowJar
+
+

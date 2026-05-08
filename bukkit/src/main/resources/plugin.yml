@@ -2,7 +2,7 @@
 # ${-} are variables from Maven (pom.xml) which will be replaced after the build
 name: ${project.parent.name}
 version: ${project.version}-${git.commit.id.abbrev}
-main: com.github.games647.fastlogin.bukkit.FastLoginBukkit
+main: dev.cads.premiumguard.bukkit.PremiumGuardBukkit
 
 # meta data for plugin managers
 authors: [CADS]
@@ -43,3 +43,4 @@ permissions:
     premiumguard.command.bypass:
         description: 'Allow managing PremiumGuard bypass list'
         default: op
+

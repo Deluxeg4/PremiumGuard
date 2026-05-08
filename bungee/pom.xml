@@ -4,7 +4,7 @@
 
     The MIT License (MIT)
 
-    Copyright (c) 2015-2024 games647 and contributors
+    Copyright (c) 2015-2024 CADS and contributors
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -30,14 +30,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.github.games647</groupId>
-        <artifactId>fastlogin</artifactId>
+        <groupId>com.github.CADS</groupId>
+        <artifactId>PremiumGuard</artifactId>
         <version>1.12-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <!--This has to be in lowercase because it's used by plugin.yml-->
-    <artifactId>fastlogin.bungee</artifactId>
+    <artifactId>PremiumGuard.bungee</artifactId>
     <packaging>jar</packaging>
 
     <properties>
@@ -45,7 +45,7 @@
     </properties>
 
     <!--Represents the main plugin-->
-    <name>FastLoginBungee</name>
+    <name>PremiumGuardBungee</name>
 
     <build>
         <plugins>
@@ -60,11 +60,11 @@
                     <relocations>
                         <relocation>
                             <pattern>com.zaxxer.hikari</pattern>
-                            <shadedPattern>fastlogin.hikari</shadedPattern>
+                            <shadedPattern>PremiumGuard.hikari</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>org.slf4j</pattern>
-                            <shadedPattern>fastlogin.slf4j</shadedPattern>
+                            <shadedPattern>PremiumGuard.slf4j</shadedPattern>
                         </relocation>
                     </relocations>
                     <!-- Rename the service file too to let SLF4J api find our own relocated jdk logger -->
@@ -115,7 +115,7 @@
         <!--Common plugin component-->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>fastlogin.core</artifactId>
+            <artifactId>PremiumGuard.core</artifactId>
             <version>${project.version}</version>
             <!--Those classes are already present in BungeeCord version-->
             <exclusions>
@@ -240,3 +240,5 @@
         </dependency>
     </dependencies>
 </project>
+
+

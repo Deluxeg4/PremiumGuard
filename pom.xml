@@ -4,7 +4,7 @@
 
     The MIT License (MIT)
 
-    Copyright (c) 2015-2024 games647 and contributors
+    Copyright (c) 2024-2025 CADS
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -29,17 +29,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.games647</groupId>
-    <!--This has to be in lowercase because it's used by plugin.yml-->
-    <artifactId>fastlogin</artifactId>
+    <groupId>dev.cads</groupId>
+    <artifactId>premiumguard</artifactId>
     <packaging>pom</packaging>
 
-    <name>FastLogin</name>
-    <version>1.12-SNAPSHOT</version>
+    <name>PremiumGuard</name>
+    <version>1.0-SNAPSHOT</version>
 
-    <url>https://www.spigotmc.org/resources/fastlogin.14153/</url>
+    <url>https://github.com/Deluxeg4/PremiumGuard</url>
     <description>
-        Automatically login premium (paid accounts) player on an offline mode server
+        Automatically detect and login premium Minecraft players on an offline mode server
     </description>
 
     <properties>
@@ -234,3 +233,5 @@
         </dependency>
     </dependencies>
 </project>
+
+

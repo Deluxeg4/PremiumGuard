@@ -4,7 +4,7 @@
 
     The MIT License (MIT)
 
-    Copyright (c) 2015-2024 games647 and contributors
+    Copyright (c) 2015-2024 CADS and contributors
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -30,13 +30,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.github.games647</groupId>
-        <artifactId>fastlogin</artifactId>
+        <groupId>com.github.CADS</groupId>
+        <artifactId>PremiumGuard</artifactId>
         <version>1.12-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>fastlogin.core</artifactId>
+    <artifactId>PremiumGuard.core</artifactId>
     <packaging>jar</packaging>
 
     <properties>
@@ -44,7 +44,7 @@
         <maven.compiler.release>8</maven.compiler.release>
     </properties>
 
-    <name>FastLoginCore</name>
+    <name>PremiumGuardCore</name>
 
     <repositories>
         <repository>
@@ -77,7 +77,7 @@
                 <configuration>
                     <archive>
                         <manifestEntries>
-                            <Automatic-Module-Name>com.github.games647.fastlogin.core</Automatic-Module-Name>
+                            <Automatic-Module-Name>dev.cads.premiumguard.core</Automatic-Module-Name>
                         </manifestEntries>
                     </archive>
                 </configuration>
@@ -201,7 +201,7 @@
 
         <!--Common component for contacting the Mojang API-->
         <dependency>
-            <groupId>com.github.games647</groupId>
+            <groupId>com.github.CADS</groupId>
             <artifactId>craftapi</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
@@ -215,3 +215,5 @@
         </dependency>
     </dependencies>
 </project>
+
+

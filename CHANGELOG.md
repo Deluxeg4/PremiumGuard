@@ -31,8 +31,8 @@
 * Increase hook delay to let ProtocolLib inject the listener
 * Drop support for old AuthMe API + Add support for new AuthMe API
 * Remove eBean util usage to make it compatible with 1.12
-* Do not try to hook into a plugin if auth plugin hook is already set using the FastLogin API
-* Automatically register accounts if they are not in the auth plugin database but in the FastLogin database
+* Do not try to hook into a plugin if auth plugin hook is already set using the PremiumGuard API
+* Automatically register accounts if they are not in the auth plugin database but in the PremiumGuard database
 * Update BungeeAuth dependency and use the new API. Please update your plugin if you still use the old one.
 * Remove deprecated API methods from the last version
 * Finally, update the IP column on every login
@@ -51,7 +51,7 @@
 * [API] Deprecated platform specific auth-plugin. Please use AuthPlugin< platform specific player type >
 * [API] Deprecated bukkit's password generator. Please use PasswordGenerator< platform specific player type >
 * Fix ProtocolSupport autoRegister
-* Fix update username in FastLogin database after nameChange
+* Fix update username in PremiumGuard database after nameChange
 * Fix logging exceptions on encryption enabling
 * Fix compatibility with older ProtocolLib versions (for 1.7) because of the missing getMethodAcccessorOrNull method
 * Fix correct cracked permission for bukkit
@@ -258,3 +258,5 @@
 
 ### 0.1
 * First release
+
+

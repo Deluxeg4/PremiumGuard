@@ -30,3 +30,5 @@ updates:
       # HikariCP dropped Java 8 support with 5.0
       - dependency-name: "com.zaxxer:HikariCP"
         update-types: ["version-update:semver-major"]
+
+

@@ -82,7 +82,7 @@ dependencies {
         transitive = false
     }
     
-    compileOnly('com.github.games647:LogIt:9e3581db27') {
+    compileOnly('com.github.CADS:LogIt:9e3581db27') {
         transitive = false
     }
     
@@ -106,7 +106,7 @@ dependencies {
     compileOnly 'net.md-5:bungeecord-config:1.20-R0.2'
     
     // CraftAPI (for MojangResolver)
-    compileOnly 'com.github.games647:craftapi:1.0-SNAPSHOT'
+    compileOnly 'com.github.CADS:craftapi:1.0-SNAPSHOT'
     
     // Geyser API (for GeyserApiBase)
     compileOnly('org.geysermc.geyser:api:2.2.1-SNAPSHOT') {
@@ -162,3 +162,5 @@ shadowJar {
 
 // Build task depends on shadowJar
 tasks.build.dependsOn shadowJar
+
+

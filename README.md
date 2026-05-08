@@ -1,6 +1,6 @@
-# FastLogin
+# PremiumGuard
 
-![A shield-shaped emblem with a bold lightning bolt on the left, resembling Minecraft blocks. To the right, "FastLogin" is written in teal, with the tagline: "Automatically detect and login premium Minecraft players"](https://github.com/user-attachments/assets/0788ef69-029b-465e-83a2-b8e7bccc6295 "FastLogin project logo.avif")
+![A shield-shaped emblem with a bold lightning bolt on the left, resembling Minecraft blocks. To the right, "PremiumGuard" is written in teal, with the tagline: "Automatically detect and login premium Minecraft players"](https://github.com/user-attachments/assets/0788ef69-029b-465e-83a2-b8e7bccc6295 "PremiumGuard project logo.avif")
 
 Checks if a Minecraft player has a paid account (premium). If so, they can skip offline authentication (auth plugins).
 So they don't need to enter passwords. This is also called auto login (auto-login).
@@ -32,7 +32,7 @@ Development builds contain the latest changes from the Source-Code. They are ble
 but also include features, enhancements and bug fixes that are not yet in a released version. If you click on the left
 side on `Changes`, you can see iterative change sets leading to a specific build.
 
-You can download them from here: [CodeMC(Jenkins)](https://ci.codemc.org/job/Games647/job/FastLogin/)
+You can download them from here: [GitHub Actions](https://github.com/Deluxeg4/PremiumGuard/actions)
 
 ***
 
@@ -75,16 +75,16 @@ sequenceDiagram
 
 ## Permissions
 
-    fastlogin.bukkit.command.premium
-    fastlogin.bukkit.command.cracked
+    premiumguard.bukkit.command.premium
+    premiumguard.bukkit.command.cracked
 
-    fastlogin.command.premium.other
-    fastlogin.command.cracked.other
+    premiumguard.command.premium.other
+    premiumguard.command.cracked.other
 
 ## Placeholder
 
 This plugin supports `PlaceholderAPI` on `Spigot`. It exports the following variable
-`%fastlogin_status%`. In BungeeCord environments, the status of a player will be delivered with a delay after the player
+`%premiumguard_status%`. In BungeeCord environments, the status of a player will be delivered with a delay after the player
 already successful joined the server. This takes about a couple of milliseconds. In this case the value
 will be `Unknown`.
 
@@ -92,7 +92,7 @@ Possible values: `Premium`, `Cracked`, `Unknown`
 
 ## Requirements
 
-* Java: 21+ recommended for improved multi-threading code by FastLogin
+* Java: 21+ recommended for improved multi-threading code by PremiumGuard
   * Spigot: 8+
   * BungeeCord and Velocity: 17+
 * Server software in offlinemode:
@@ -111,7 +111,7 @@ Possible values: `Premium`, `Cracked`, `Unknown`
 * [AuthMe (5.X)](https://dev.bukkit.org/bukkit-plugins/authme-reloaded/)
 * [CrazyLogin](https://dev.bukkit.org/bukkit-plugins/crazylogin/)
 * [LoginSecurity](https://dev.bukkit.org/bukkit-plugins/loginsecurity/)
-* [LogIt](https://github.com/games647/LogIt)
+* [LogIt](https://github.com/Deluxeg4/LogIt)
 * [UltraAuth](https://dev.bukkit.org/bukkit-plugins/ultraauth-aa/)
 * [UserLogin](https://www.spigotmc.org/resources/userlogin.80669/)
 * [xAuth](https://dev.bukkit.org/bukkit-plugins/xauth/)
@@ -134,7 +134,7 @@ This plugin performs network requests to:
 ### Spigot/Paper
 
 1. Download and install ProtocolLib/ProtocolSupport
-2. Download and install `FastLoginBukkit`
+2. Download and install `PremiumGuardBukkit`
 3. Set your server in offline mode by setting the value `onlinemode` in your server.properties to `false`
 
 ### BungeeCord/Waterfall or Velocity
@@ -144,11 +144,11 @@ Install the plugin on both platforms, that is proxy (BungeeCord or Velocity) and
 1. Activate proxy support in the server configuration
    * This is often found in `spigot.yml` or `paper.yml`
 2. Restart the backend server
-3. Now there is `allowed-proxies.txt` file in the FastLogin folder of the restarted server
+3. Now there is `allowed-proxies.txt` file in the PremiumGuard folder of the restarted server
     * BungeeCord: Put your `stats`-id from the BungeeCord config into this file
     * Velocity: On plugin startup the plugin generates a `proxyId.txt` inside the plugins folder of the proxy
 4. Activate ip forwarding in your proxy config
-5. Check your database settings in the config of FastLogin on your proxy
+5. Check your database settings in the config of PremiumGuard on your proxy
     * The proxies only ship with a limited set of drivers where Spigot supports more. Therefore, these are supported:
     * BungeeCord: `mysql` for MySQL/MariaDB
     * Velocity: `mariadb` for MySQL/MariaDB
@@ -159,3 +159,5 @@ Install the plugin on both platforms, that is proxy (BungeeCord or Velocity) and
 7. You should *always* configure the firewall for your Spigot server so that it's only accessible through your proxy
    * This is also the case without this plugin
    * https://www.spigotmc.org/wiki/bungeecord-installation/#post-installation
+
+

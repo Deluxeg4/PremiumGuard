@@ -40,7 +40,7 @@ allprojects {
         // PaperMC - Paper API, Velocity
         maven { url = 'https://repo.papermc.io/repository/maven-public/' }
         
-        // CodeMC - FastLogin, AuthMe, etc.
+        // CodeMC - PremiumGuard, AuthMe, etc.
         maven { url = 'https://repo.codemc.io/repository/maven-public/' }
         
         // Floodgate
@@ -85,3 +85,5 @@ subprojects {
         useJUnitPlatform()
     }
 }
+
+

@@ -25,3 +25,5 @@ stripped before including it.**
 * `expires_at`: Expiration date
 * `key`: Public key from the original file out of `public_key.key`
 * `signature`: Mojang signed signature of this public key
+
+
